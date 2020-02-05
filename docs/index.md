@@ -16,10 +16,11 @@ It charges wirelessly, so there are no cables or plugs.  The aesthetic was inten
 
 It allows you to: view the current and upcoming weather. View the indoor temperature, and adjust the thermostat. Listen to podcasts or the radio on Sonos speakers, find your cellphone, and open the garage door.
 
-The following pages describe the design and technical choices in the creation of this device. The software and design are fully open source, and available here, with the caveat that this was created as a one-of-a-kind device, and so some tinkering with the software and hardware should be expected if attempting to reproduce.
+The following pages describe the design and technical choices in the creation of this device. The software and design are fully open source, and available [here](https://github.com/denglend/stone) here, with the caveat that this was created as a one-of-a-kind device, and so some tinkering with the software and hardware should be expected if attempting to reproduce.
 
  - Overview
-	 - Design Choices
+	 - [Design Choices](design-choices.md)
+	 - [Parts list](parts-list.md)
  - Software
 	 - Wifi & HTTP
 	 - HTTPS
@@ -28,8 +29,8 @@ The following pages describe the design and technical choices in the creation of
 	 - Sonos
 	 - Pushover
 	 - [Weather Underground](sw-weather.md)
-	 - ESP32 Specific (Deep Sleep, Battery, NVM)
-	 - Misc (OTA)
+	 - [ESP32 Specific (Deep Sleep, NVM)](sw-esp32.md)
+	 - [Misc (OTA)](sw-misc.md)
  - Electronics
 	 - Garage Door Opener
 	 - E-Ink
