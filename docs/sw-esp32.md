@@ -1,6 +1,9 @@
 #ESP32 Specific
+
 There were a few valuable benefits the ESP32 had over older microprocessors for features specific to this project.  Among them were Deep Sleep and NVM.
+
 ###Deep Sleep
+
 The ESP32 has a variety of sleep modes; including a Deep Sleep which powers down the CPU and RAM, optionally keeping a low power co-processor active.  Even if the co-processor is kept powered, the overall consumption is extremely low, ideal for a battery-powered application such as this.  Unfortunately, the ESP32 dev board I used (Adafruit's HUZZAH32) is not optimized for low power consumption, so the Deep Sleep current draw is dwarfed by other quiescient current that's drawn by the board.  That said, in Deep Sleep with hourly wakeups, the device is still good for several days without a recharge.
 
 Here's my code to enter Deep Sleep:
