@@ -22,7 +22,7 @@ The following pages describe the design and technical choices in the creation of
 	 - [Design Choices](design-choices.md)
 	 - [Parts list](parts-list.md)
  - Software
-	 - Wifi & HTTP
+	 - [Wifi & HTTP](sw-wifi-http.md)
 	 - HTTPS
 	 - EcoBee
 	 - IFTTT

@@ -4,11 +4,11 @@ There were a few valuable benefits the ESP32 had over older microprocessors for 
 
 ### Deep Sleep
 
-The ESP32 has a variety of sleep modes; including a Deep Sleep which powers down the CPU and RAM, optionally keeping a low power co-processor active.  Even if the co-processor is kept powered, the overall consumption is extremely low, ideal for a battery-powered application such as this.  Unfortunately, the ESP32 dev board I used (Adafruit's HUZZAH32) is not optimized for low power consumption, so the Deep Sleep current draw is dwarfed by other quiescient current that's drawn by the board.  That said, in Deep Sleep with hourly wakeups, the device is still good for several days without a recharge.
+The ESP32 has a variety of sleep modes; including a Deep Sleep which powers down the CPU and RAM, optionally keeping a low power co-processor active.  Even if the co-processor is kept powered, the overall consumption is extremely low, ideal for a battery-powered application such as this.  Unfortunately, the ESP32 dev board I used (Adafruit's HUZZAH32) is not optimized for low power consumption, so the Deep Sleep current draw is dwarfed by other quiescient current that's drawn by the board (the USB to serial converter, specifically).  That said, in Deep Sleep with hourly wakeups, the device is still good for several days without a recharge, drawing about 9 mA while in deep sleep.
 
 Here's my code to enter Deep Sleep:
 
-```C++
+```c++
 void DeepSleep(uint64_t sec) {
   if (sec == 0) {						//If # of seconds not provided...
     RealTime.Update();						//...Get the current real world time
@@ -18,7 +18,7 @@ void DeepSleep(uint64_t sec) {
     else {							//...Assuming real world time was successfully loaded
     								//...Set wakeup for the next hour (e.g. 6:00 AM if it's currently 5:25)
       sec = (60 - RealTime.timeinfo.tm_min) * 60 + (60 - RealTime.timeinfo.tm_sec);
-      if (sec < DEEPSLEEP_MINIMUM_SEC) {	//...Unless the next hour is almost upon us
+      if (sec < DEEPSLEEP_MINIMUM_SEC) {			//...Unless the next hour is almost upon us
         sec += 60*60;						//...In which case, wake up in an hour from now
       }
     }
