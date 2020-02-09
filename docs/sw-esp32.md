@@ -1,8 +1,8 @@
-#ESP32 Specific
+# ESP32 Specific
 
 There were a few valuable benefits the ESP32 had over older microprocessors for features specific to this project.  Among them were Deep Sleep and NVM.
 
-###Deep Sleep
+### Deep Sleep
 
 The ESP32 has a variety of sleep modes; including a Deep Sleep which powers down the CPU and RAM, optionally keeping a low power co-processor active.  Even if the co-processor is kept powered, the overall consumption is extremely low, ideal for a battery-powered application such as this.  Unfortunately, the ESP32 dev board I used (Adafruit's HUZZAH32) is not optimized for low power consumption, so the Deep Sleep current draw is dwarfed by other quiescient current that's drawn by the board.  That said, in Deep Sleep with hourly wakeups, the device is still good for several days without a recharge.
 
@@ -10,13 +10,13 @@ Here's my code to enter Deep Sleep:
 
 ```C++
 void DeepSleep(uint64_t sec) {
-  if (sec == 0) {							//If # of seconds not provided...
+  if (sec == 0) {						//If # of seconds not provided...
     RealTime.Update();						//...Get the current real world time
     if (!RealTime.IsTimeSet()) {
       sec = DEEPSLEEP_DEFAULT_MINUTES*60;
     }
-    else {									//...Assuming real world time was successfully loaded
-    										//...Set wakeup for the next hour (e.g. 6:00 AM if it's currently 5:25)
+    else {							//...Assuming real world time was successfully loaded
+    								//...Set wakeup for the next hour (e.g. 6:00 AM if it's currently 5:25)
       sec = (60 - RealTime.timeinfo.tm_min) * 60 + (60 - RealTime.timeinfo.tm_sec);
       if (sec < DEEPSLEEP_MINIMUM_SEC) {	//...Unless the next hour is almost upon us
         sec += 60*60;						//...In which case, wake up in an hour from now
@@ -35,7 +35,7 @@ void DeepSleep(uint64_t sec) {
   esp_wifi_disconnect();			//...and disconnect the wifi
   delay(2000);            			//...but given enough time to cleanly disconnect
   esp_deep_sleep_start();			//Go to sleep
-  logln("DEBUG","assert never");	//This line never runs
+  logln("DEBUG","assert never");		//This line never runs
 }
 ```
 
@@ -73,7 +73,7 @@ switch (esp_sleep_get_wakeup_cause()) {
 ```
  
  
-###NVM
+### NVM
 Given that RAM is cleared every time Deep Sleep is entered, there needs to be a non-volitile storage location for anything that needs to persist across resets.  In this case, that's data like: podcast play history, API tokens, etc.
  
 Conveniently, the ESP32 includes a facility to use some of the built-in flash memory for this purpose.  The flow I use is that each class's `begin` function (called during initial setup()) loads data from NVM into the class's data structure.  Any time data is refreshed or altered, it is then saved back to NVM.

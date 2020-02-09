@@ -33,7 +33,7 @@ The following pages describe the design and technical choices in the creation of
 	 - [Misc (OTA)](sw-misc.md)
  - Electronics
 	 - Garage Door Opener
-	 - E-Ink
+	 - E-Ink  --- (half updates b/c not enough current when wifi connecting?)
 	 - Beam
 	 - Buttons
  - Case Hardware
